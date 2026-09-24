@@ -34,23 +34,31 @@ describe("SpeakerCard", () => {
       />,
     );
 
-    expect(screen.getByText("Marta Fernandez")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Marta Fernandez", level: 2 }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Opening Keynote")).toBeInTheDocument();
     expect(screen.getByText("09:00")).toBeInTheDocument();
   });
 
-  it("links each session to its session page", () => {
+  it("links each session to its session page with an unambiguous accessible name", () => {
     render(
       <SpeakerCard
         speaker="Marta Fernandez"
-        sessions={[session({ id: "opening-keynote" })]}
+        sessions={[
+          session({
+            id: "opening-keynote",
+            title: "Opening Keynote",
+            startTime: "09:00",
+          }),
+        ]}
       />,
     );
 
-    expect(screen.getByRole("link")).toHaveAttribute(
-      "href",
-      "/en/sessions/opening-keynote",
-    );
+    const link = screen.getByRole("link", {
+      name: "09:00, Opening Keynote",
+    });
+    expect(link).toHaveAttribute("href", "/en/sessions/opening-keynote");
   });
 
   it("renders one entry per session when a speaker has more than one", () => {

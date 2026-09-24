@@ -17,18 +17,20 @@ export function SpeakerCard({ speaker, sessions }: SpeakerCardProps) {
   return (
     <Card height="full">
       <CardHeader>
-        <CardTitle fontSize="lg">{speaker}</CardTitle>
+        <CardTitle as="h2" fontSize="lg">
+          {speaker}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Flex direction="column" gap="3">
           {sessions.map((session) => (
-            <Link key={session.id} href={`/sessions/${session.id}`}>
-              <Flex
-                direction="column"
-                transition="color 0.2s"
-                _hover={{ color: "var(--accent-hex)" }}
-              >
-                <Text fontSize="sm" color="var(--text-muted)">
+            <Link
+              key={session.id}
+              href={`/sessions/${session.id}`}
+              aria-label={`${session.startTime}, ${session.title}`}
+            >
+              <Flex direction="column">
+                <Text fontSize="sm" color="var(--text-secondary)">
                   {session.startTime}
                 </Text>
                 <Text color="var(--text-primary)">{session.title}</Text>
