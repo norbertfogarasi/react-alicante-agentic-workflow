@@ -17,7 +17,7 @@ export function SpeakerCard({ speaker, sessions }: SpeakerCardProps) {
   return (
     <Card height="full">
       <CardHeader>
-        <CardTitle as="h2" fontSize="lg">
+        <CardTitle as="h2" fontSize="md">
           {speaker}
         </CardTitle>
       </CardHeader>
