@@ -27,6 +27,34 @@ describe("SessionBlock", () => {
     ).toBeInTheDocument();
   });
 
+  it("translates the intermediate level", () => {
+    render(
+      <SessionBlock
+        session={{ ...session, level: "intermediate" }}
+        top={0}
+        height={72}
+      />,
+    );
+
+    expect(
+      screen.getByText("09:00 · Marta Fernandez · Intermediate"),
+    ).toBeInTheDocument();
+  });
+
+  it("translates the advanced level", () => {
+    render(
+      <SessionBlock
+        session={{ ...session, level: "advanced" }}
+        top={0}
+        height={72}
+      />,
+    );
+
+    expect(
+      screen.getByText("09:00 · Marta Fernandez · Advanced"),
+    ).toBeInTheDocument();
+  });
+
   it("links to the session page", () => {
     render(<SessionBlock session={session} top={0} height={72} />);
 
