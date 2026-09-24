@@ -10,6 +10,7 @@ const session: Session = {
   title: "Opening Keynote",
   speaker: "Marta Fernandez",
   track: "React",
+  level: "beginner",
   room: "Main Hall",
   startTime: "09:00",
   durationMinutes: 45,
@@ -17,11 +18,41 @@ const session: Session = {
 };
 
 describe("SessionBlock", () => {
-  it("shows the title, the start time and the speaker", () => {
+  it("shows the title, the start time, the speaker and the level", () => {
     render(<SessionBlock session={session} top={0} height={72} />);
 
     expect(screen.getByText("Opening Keynote")).toBeInTheDocument();
-    expect(screen.getByText("09:00 · Marta Fernandez")).toBeInTheDocument();
+    expect(
+      screen.getByText("09:00 · Marta Fernandez · Beginner"),
+    ).toBeInTheDocument();
+  });
+
+  it("translates the intermediate level", () => {
+    render(
+      <SessionBlock
+        session={{ ...session, level: "intermediate" }}
+        top={0}
+        height={72}
+      />,
+    );
+
+    expect(
+      screen.getByText("09:00 · Marta Fernandez · Intermediate"),
+    ).toBeInTheDocument();
+  });
+
+  it("translates the advanced level", () => {
+    render(
+      <SessionBlock
+        session={{ ...session, level: "advanced" }}
+        top={0}
+        height={72}
+      />,
+    );
+
+    expect(
+      screen.getByText("09:00 · Marta Fernandez · Advanced"),
+    ).toBeInTheDocument();
   });
 
   it("links to the session page", () => {

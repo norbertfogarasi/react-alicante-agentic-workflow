@@ -2,6 +2,7 @@ import { Badge } from "@/components/atoms/badge";
 import { Link } from "@/i18n/navigation";
 import { fetchSessionById, fetchSessions } from "@/services/sessions";
 import { Flex, Heading, Text } from "@chakra-ui/react";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -28,6 +29,8 @@ export default async function SessionDetailPage({
     notFound();
   }
 
+  const t = await getTranslations("Sessions");
+
   return (
     <Flex direction="column" gap="6" flex="1" width="full">
       <Link href="/sessions">
@@ -43,7 +46,14 @@ export default async function SessionDetailPage({
 
       <Flex direction="column" gap="3">
         <Flex align="center" gap="3">
+          <Text as="span" srOnly>
+            {t("trackLabel")}
+          </Text>
           <Badge>{session.track}</Badge>
+          <Text as="span" srOnly>
+            {t("levelLabel")}
+          </Text>
+          <Badge variant="secondary">{t(`level.${session.level}`)}</Badge>
           <Text fontSize="sm" color="var(--text-muted)">
             {session.startTime} · {session.durationMinutes} min · {session.room}
           </Text>
